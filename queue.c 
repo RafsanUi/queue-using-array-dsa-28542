@@ -1,0 +1,131 @@
+
+#include <stdio.h>
+
+#define MAX 5
+
+int queue[MAX];
+int front = 0;
+int rear = -1;
+
+// Check if the queue is empty
+int isEmpty() {
+    return rear == -1;
+}
+
+// Insert an element into the queue
+void enqueue(int value) {
+    if (rear == MAX - 1) {
+        printf("Queue is full!\n");
+    }
+    else {
+        rear++;
+        queue[rear] = value;
+        printf("%d added to the queue.\n", value);
+    }
+}
+
+// Remove an element from the queue
+void dequeue() {
+    if (isEmpty()) {
+        printf("Queue is empty!\n");
+    }
+    else {
+        printf("%d removed from the queue.\n", queue[front]);
+
+        for (int i = 0; i < rear; i++) {
+            queue[i] = queue[i + 1];
+        }
+
+        rear--;
+    }
+}
+
+// Show the first element
+void peek() {
+    if (isEmpty()) {
+        printf("Queue is empty!\n");
+    }
+    else {
+        printf("First element is: %d\n", queue[front]);
+    }
+}
+
+// Find the total number of elements
+int size() {
+    return rear + 1;
+}
+
+// Display all queue elements
+void display() {
+    if (isEmpty()) {
+        printf("Queue is empty!\n");
+    }
+    else {
+        printf("Queue elements are: ");
+
+        for (int i = front; i <= rear; i++) {
+            printf("%d ", queue[i]);
+        }
+
+        printf("\n");
+    }
+}
+
+int main() {
+    int choice, value;
+
+    while (1) {
+        printf("\n===== QUEUE USING ARRAY =====\n");
+        printf("1. Enqueue\n");
+        printf("2. Dequeue\n");
+        printf("3. Peek\n");
+        printf("4. Is Empty\n");
+        printf("5. Length / Size\n");
+        printf("6. Display\n");
+        printf("0. Exit\n");
+
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+
+            case 1:
+                printf("Enter a number: ");
+                scanf("%d", &value);
+                enqueue(value);
+                break;
+
+            case 2:
+                dequeue();
+                break;
+
+            case 3:
+                peek();
+                break;
+
+            case 4:
+                if (isEmpty())
+                    printf("Queue is empty.\n");
+                else
+                    printf("Queue is not empty.\n");
+                break;
+
+            case 5:
+                printf("Total elements: %d\n", size());
+                break;
+
+            case 6:
+                display();
+                break;
+
+            case 0:
+                printf("Program finished.\n");
+                return 0;
+
+            default:
+                printf("Invalid choice! Try again.\n");
+        }
+    }
+
+    return 0;
+}
